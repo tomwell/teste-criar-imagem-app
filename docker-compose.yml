@@ -1,0 +1,32 @@
+version: '3.8'
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  mongo-volume:
+
+services:  
+  api:
+    container_name: api-web
+    image: api-web-teste
+    ports:
+      - 80:80
+    networks:
+      - api-network
+    # environment:
+    #   - name=value
+
+  mongodb: 
+    container_name: mongodb-teste
+    image: mongo
+    volumes:
+      - mongo-volume:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - api-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: 12345678
